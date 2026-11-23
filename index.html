@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+        <title>RC Controller By Davin</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                background-color: #0f172a;
+                color: #f8fafc;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                min-height: 100vh;
+                min-height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 16px;
+                max-width: 440px;
+                margin: 0 auto;
+            }
+            .left-panel {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+            .right-panel {
+                width: 100%;
+                margin-top: 12px;
+            }
+            .card {
+                background: rgba(30, 41, 59, 0.9);
+                border: 1px solid #334155;
+                border-radius: 16px;
+                padding: 14px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+            .header-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .title-wrap {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 700;
+                font-size: 17px;
+            }
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #ef4444;
+            }
+            .dot.online {
+                background: #10b981;
+                box-shadow: 0 0 8px #10b981;
+            }
+            .badge {
+                font-size: 11px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 99px;
+                background: rgba(239, 68, 68, 0.2);
+                color: #f87171;
+                border: 1px solid rgba(239, 68, 68, 0.3);
+            }
+            .badge.online {
+                background: rgba(16, 185, 129, 0.2);
+                color: #34d399;
+                border-color: rgba(16, 185, 129, 0.3);
+            }
+            .conn-row {
+                display: flex;
+                gap: 8px;
+            }
+            input[type="text"] {
+                width: 100%;
+                background: #0f172a;
+                border: 1px solid #334155;
+                border-radius: 10px;
+                padding: 8px 12px;
+                color: #e2e8f0;
+                font-family: monospace;
+                font-size: 13px;
+                outline: none;
+            }
+            .btn-conn {
+                background: #059669;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                padding: 8px 14px;
+                font-weight: 600;
+                font-size: 13px;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .btn-conn.disc {
+                background: #e11d48;
+            }
+            .term-box {
+                background: #020617;
+                border: 1px solid #1e293b;
+                border-radius: 14px;
+                padding: 10px;
+            }
+            .term-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #1e293b;
+                padding-bottom: 6px;
+                margin-bottom: 6px;
+                font-family: monospace;
+                font-size: 11px;
+                color: #94a3b8;
+            }
+            .btn-clear {
+                background: #1e293b;
+                color: #cbd5e1;
+                border: none;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                cursor: pointer;
+            }
+            #terminal {
+                font-family: monospace;
+                font-size: 11px;
+                height: 120px;
+                overflow-y: auto;
+                line-height: 1.5;
+                color: #34d399;
+            }
+            .speed-head {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                font-weight: 600;
+                margin-bottom: 6px;
+                color: #cbd5e1;
+            }
+            #speed-val {
+                font-family: monospace;
+                color: #60a5fa;
+            }
+            input[type="range"] {
+                width: 100%;
+                accent-color: #3b82f6;
+                cursor: pointer;
+            }
+            .pad-wrap {
+                background: rgba(30, 41, 59, 0.5);
+                border: 1px solid rgba(51, 65, 85, 0.6);
+                border-radius: 24px;
+                padding: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+            .btn-rc {
+                height: 76px;
+                border: none;
+                border-radius: 16px;
+                color: white;
+                font-weight: 800;
+                font-size: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                cursor: pointer;
+                transition: transform 0.06s;
+            }
+            .btn-dir {
+                background: linear-gradient(145deg, #3b82f6, #2563eb);
+                box-shadow: 0 5px 0 #1d4ed8;
+            }
+            .btn-dir:active,
+            .btn-dir.active-key {
+                transform: translateY(4px);
+                box-shadow: 0 1px 0 #1d4ed8;
+            }
+            .btn-brake {
+                background: linear-gradient(145deg, #ef4444, #dc2626);
+                box-shadow: 0 5px 0 #991b1b;
+            }
+            .btn-brake:active,
+            .btn-brake.active-key {
+                transform: translateY(4px);
+                box-shadow: 0 1px 0 #991b1b;
+            }
+            .arrow {
+                font-size: 22px;
+                line-height: 1;
+            }
+
+            /* Pengaturan Otomatis Mode Landscape (Layar Miring) */
+            @media (orientation: landscape) {
+                body {
+                    flex-direction: row;
+                    align-items: stretch;
+                    max-width: 860px;
+                    gap: 16px;
+                    padding: 12px 16px;
+                }
+                .left-panel {
+                    flex: 1.15;
+                    justify-content: space-between;
+                    gap: 8px;
+                }
+                .right-panel {
+                    flex: 0.85;
+                    margin-top: 0;
+                    display: flex;
+                }
+                .pad-wrap {
+                    width: 100%;
+                    height: 100%;
+                    padding: 12px;
+                }
+                .card {
+                    padding: 10px 12px;
+                }
+                .header-top {
+                    margin-bottom: 6px;
+                }
+                #terminal {
+                    height: 78px;
+                }
+                .grid {
+                    max-width: 260px;
+                    gap: 10px;
+                }
+                .btn-rc {
+                    height: 68px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="left-panel">
+            <div class="card">
+                <div class="header-top">
+                    <div class="title-wrap">
+                        <span id="dot" class="dot"></span>Remote Control By
+                        Davin <span style="color: #60a5fa">RC</span>
+                    </div>
+                    <span id="status" class="badge">Terputus</span>
+                </div>
+                <div class="conn-row">
+                    <input
+                        type="text"
+                        id="esp-ip"
+                        value="192.168.4.1"
+                        placeholder="IP ESP32"
+                    />
+                    <button
+                        id="btn-conn"
+                        class="btn-conn"
+                        onclick="toggleConn()"
+                    >
+                        Sambungkan
+                    </button>
+                </div>
+            </div>
+
+            <div class="term-box">
+                <div class="term-head">
+                    <span>terminal text</span>
+                    <button class="btn-clear" onclick="clearTerm()">
+                        Bersihkan
+                    </button>
+                </div>
+                <div id="terminal">
+                    <div style="color: #64748b">
+                        [SYSTEM] Antarmuka siap (Portrait & Landscape).
+                    </div>
+                    <div style="color: #64748b">
+                        [SYSTEM] Tekan tombol 'Sambungkan' untuk mulai.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 10px 14px">
+                <div class="speed-head">
+                    <span>Kecepatan Motor (PWM ENA/ENB)</span>
+                    <span id="speed-val">200 / 255</span>
+                </div>
+                <input
+                    type="range"
+                    min="80"
+                    max="255"
+                    value="200"
+                    oninput="
+                        document.getElementById('speed-val').innerText =
+                            this.value + ' / 255'
+                    "
+                    onchange="setSpeed(this.value)"
+                />
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="pad-wrap">
+                <div class="grid">
+                    <div></div>
+                    <button
+                        id="btn-F"
+                        class="btn-rc btn-dir"
+                        ontouchstart="press(event,'F','MAJU')"
+                        ontouchend="release(event)"
+                        onmousedown="press(event, 'F', 'MAJU')"
+                        onmouseup="release(event)"
+                        onmouseleave="release(event)"
+                    >
+                        <span class="arrow">▲</span><span>MAJU</span>
+                    </button>
+                    <div></div>
+
+                    <button
+                        id="btn-L"
+                        class="btn-rc btn-dir"
+                        ontouchstart="press(event,'L','BELOK KIRI')"
+                        ontouchend="release(event)"
+                        onmousedown="press(event, 'L', 'BELOK KIRI')"
+                        onmouseup="release(event)"
+                        onmouseleave="release(event)"
+                    >
+                        <span class="arrow">◀</span><span>KIRI</span>
+                    </button>
+                    <button
+                        id="btn-S"
+                        class="btn-rc btn-brake"
+                        ontouchstart="brake(event)"
+                        onclick="brake(event)"
+                    >
+                        <span class="arrow">■</span><span>REM</span>
+                    </button>
+                    <button
+                        id="btn-R"
+                        class="btn-rc btn-dir"
+                        ontouchstart="press(event,'R','BELOK KANAN')"
+                        ontouchend="release(event)"
+                        onmousedown="press(event, 'R', 'BELOK KANAN')"
+                        onmouseup="release(event)"
+                        onmouseleave="release(event)"
+                    >
+                        <span class="arrow">▶</span><span>KANAN</span>
+                    </button>
+
+                    <div></div>
+                    <button
+                        id="btn-B"
+                        class="btn-rc btn-dir"
+                        ontouchstart="press(event,'B','MUNDUR')"
+                        ontouchend="release(event)"
+                        onmousedown="press(event, 'B', 'MUNDUR')"
+                        onmouseup="release(event)"
+                        onmouseleave="release(event)"
+                    >
+                        <span class="arrow">▼</span><span>MUNDUR</span>
+                    </button>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let connected = false;
+            let activeCmd = "S";
+
+            function log(msg, color = "#34d399") {
+                const t = document.getElementById("terminal");
+                const time = new Date().toLocaleTimeString("id-ID", {
+                    hour12: false
+                });
+                const d = document.createElement("div");
+                d.style.color = color;
+                d.innerText = `[${time}] ${msg}`;
+                t.appendChild(d);
+                t.scrollTop = t.scrollHeight;
+            }
+
+            function clearTerm() {
+                document.getElementById("terminal").innerHTML = "";
+                log("Terminal dibersihkan.", "#94a3b8");
+            }
+
+            async function toggleConn() {
+                const ip = document.getElementById("esp-ip").value.trim();
+                const btn = document.getElementById("btn-conn");
+                const dot = document.getElementById("dot");
+                const st = document.getElementById("status");
+
+                if (connected) {
+                    connected = false;
+                    btn.innerText = "Sambungkan";
+                    btn.classList.remove("disc");
+                    dot.classList.remove("online");
+                    st.innerText = "Terputus";
+                    st.classList.remove("online");
+                    log("Koneksi diputuskan.", "#fbbf24");
+                    return;
+                }
+
+                log(`Menyambung ke ${ip}...`, "#94a3b8");
+                btn.innerText = "Proses...";
+                try {
+                    const ctrl = new AbortController();
+                    setTimeout(() => ctrl.abort(), 3000);
+                    await fetch(`http://${ip}/action?go=S`, {
+                        signal: ctrl.signal,
+                        mode: "no-cors"
+                    });
+                    connected = true;
+                    btn.innerText = "Putuskan";
+                    btn.classList.add("disc");
+                    dot.classList.add("online");
+                    st.innerText = "Terhubung";
+                    st.classList.add("online");
+                    log(`BERHASIL terhubung ke ${ip}!`);
+                } catch (e) {
+                    btn.innerText = "Sambungkan";
+                    log(
+                        `GAGAL terhubung ke ${ip}. Cek Wi-Fi atau IP ESP32.`,
+                        "#f87171"
+                    );
+                }
+            }
+
+            function sendCmd(cmd, label) {
+                if (activeCmd === cmd && cmd !== "S") return;
+                activeCmd = cmd;
+                const ip = document.getElementById("esp-ip").value.trim();
+                log(`CMD -> [${cmd}] ${label}`, "#60a5fa");
+                if (!connected) {
+                    log(`Belum terhubung! Klik 'Sambungkan'.`, "#fbbf24");
+                    return;
+                }
+                fetch(`http://${ip}/action?go=${cmd}`, {
+                    mode: "no-cors"
+                }).catch(() => log("Gagal kirim perintah.", "#f87171"));
+            }
+
+            function setSpeed(val) {
+                const ip = document.getElementById("esp-ip").value.trim();
+                log(`PWM -> Kecepatan diubah ke ${val}`, "#60a5fa");
+                if (connected) {
+                    fetch(`http://${ip}/speed?val=${val}`, { mode: "no-cors" });
+                }
+            }
+
+            function press(e, cmd, label) {
+                if (e.cancelable) e.preventDefault();
+                sendCmd(cmd, label);
+            }
+            function release(e) {
+                if (e.cancelable) e.preventDefault();
+                if (activeCmd !== "S") sendCmd("S", "BERHENTI");
+            }
+            function brake(e) {
+                if (e.cancelable) e.preventDefault();
+                activeCmd = "S";
+                sendCmd("S", "REM / STOP");
+            }
+        </script>
+    </body>
+</html>
