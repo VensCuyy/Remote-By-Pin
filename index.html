@@ -28,39 +28,39 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                padding: 16px;
+                padding: 14px;
                 max-width: 440px;
                 margin: 0 auto;
             }
             .left-panel {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
                 width: 100%;
             }
             .right-panel {
                 width: 100%;
-                margin-top: 12px;
+                margin-top: 10px;
             }
             .card {
                 background: rgba(30, 41, 59, 0.9);
                 border: 1px solid #334155;
                 border-radius: 16px;
-                padding: 14px;
+                padding: 12px;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
             .header-top {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
             .title-wrap {
                 display: flex;
                 align-items: center;
                 gap: 8px;
                 font-weight: 700;
-                font-size: 17px;
+                font-size: 16px;
             }
             .dot {
                 width: 10px;
@@ -144,7 +144,7 @@
             #terminal {
                 font-family: monospace;
                 font-size: 11px;
-                height: 120px;
+                height: 95px;
                 overflow-y: auto;
                 line-height: 1.5;
                 color: #34d399;
@@ -166,11 +166,85 @@
                 accent-color: #3b82f6;
                 cursor: pointer;
             }
+
+            /* Styling Panel Tombol Audio & Suara Langsung */
+            .audio-title {
+                font-size: 12px;
+                font-weight: 700;
+                color: #94a3b8;
+                margin-bottom: 8px;
+                display: flex;
+                justify-content: space-between;
+            }
+            .audio-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            .btn-snd {
+                background: linear-gradient(145deg, #334155, #1e293b);
+                border: 1px solid #475569;
+                color: #f8fafc;
+                border-radius: 10px;
+                padding: 10px 8px;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                box-shadow: 0 3px 0 #0f172a;
+                transition: transform 0.05s;
+            }
+            .btn-snd:active {
+                transform: translateY(2px);
+                box-shadow: 0 1px 0 #0f172a;
+            }
+            .btn-klakson {
+                background: linear-gradient(145deg, #d97706, #b45309);
+                border-color: #f59e0b;
+                box-shadow: 0 3px 0 #78350f;
+            }
+            .btn-voice {
+                width: 100%;
+                background: linear-gradient(145deg, #7c3aed, #5b21b6);
+                border: 1px solid #8b5cf6;
+                color: white;
+                border-radius: 10px;
+                padding: 11px;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                box-shadow: 0 3px 0 #4c1d95;
+            }
+            .btn-voice.recording {
+                background: #e11d48;
+                border-color: #fb7185;
+                animation: pulse 1s infinite;
+            }
+            @keyframes pulse {
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.65;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
             .pad-wrap {
                 background: rgba(30, 41, 59, 0.5);
                 border: 1px solid rgba(51, 65, 85, 0.6);
                 border-radius: 24px;
-                padding: 18px;
+                padding: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -178,13 +252,13 @@
             .grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
+                gap: 10px;
                 width: 100%;
-                max-width: 280px;
+                max-width: 260px;
                 margin: 0 auto;
             }
             .btn-rc {
-                height: 76px;
+                height: 70px;
                 border: none;
                 border-radius: 16px;
                 color: white;
@@ -217,7 +291,7 @@
                 box-shadow: 0 1px 0 #991b1b;
             }
             .arrow {
-                font-size: 22px;
+                font-size: 20px;
                 line-height: 1;
             }
 
@@ -226,40 +300,46 @@
                 body {
                     flex-direction: row;
                     align-items: stretch;
-                    max-width: 860px;
-                    gap: 16px;
-                    padding: 12px 16px;
+                    max-width: 880px;
+                    gap: 14px;
+                    padding: 10px 14px;
                 }
                 .left-panel {
-                    flex: 1.15;
+                    flex: 1.2;
                     justify-content: space-between;
-                    gap: 8px;
+                    gap: 6px;
                 }
                 .right-panel {
-                    flex: 0.85;
+                    flex: 0.8;
                     margin-top: 0;
                     display: flex;
                 }
                 .pad-wrap {
                     width: 100%;
                     height: 100%;
-                    padding: 12px;
+                    padding: 10px;
                 }
                 .card {
-                    padding: 10px 12px;
+                    padding: 8px 10px;
                 }
                 .header-top {
                     margin-bottom: 6px;
                 }
                 #terminal {
-                    height: 78px;
+                    height: 58px;
                 }
                 .grid {
-                    max-width: 260px;
-                    gap: 10px;
+                    max-width: 250px;
+                    gap: 8px;
                 }
                 .btn-rc {
-                    height: 68px;
+                    height: 62px;
+                }
+                .btn-snd {
+                    padding: 7px 6px;
+                }
+                .btn-voice {
+                    padding: 8px;
                 }
             }
         </style>
@@ -308,7 +388,41 @@
                 </div>
             </div>
 
-            <div class="card" style="padding: 10px 14px">
+            <!-- Panel Kontrol Suara & MP3 -->
+            <div class="card">
+                <div class="audio-title">
+                    <span>PANEL AUDIO & SUARA</span>
+                    <span style="color: #60a5fa; font-family: monospace"
+                        >DFPlayer MP3</span
+                    >
+                </div>
+                <div class="audio-grid">
+                    <button
+                        class="btn-snd btn-klakson"
+                        onclick="playTrack(1, 'Klakson')"
+                    >
+                        📯 Klakson
+                    </button>
+                    <button class="btn-snd" onclick="playTrack(2, 'Lagu 1')">
+                        🎵 Lagu 1
+                    </button>
+                    <button class="btn-snd" onclick="playTrack(3, 'Lagu 2')">
+                        🎶 Lagu 2
+                    </button>
+                    <button class="btn-snd" onclick="playTrack(4, 'Lagu 3')">
+                        🎧 Lagu 3
+                    </button>
+                </div>
+                <button
+                    id="btn-voice"
+                    class="btn-voice"
+                    onclick="startVoiceDelay()"
+                >
+                    🎙️ Suara Langsung HP (Jeda 2 Detik)
+                </button>
+            </div>
+
+            <div class="card" style="padding: 8px 12px">
                 <div class="speed-head">
                     <span>Kecepatan Motor (PWM ENA/ENB)</span>
                     <span id="speed-val">200 / 255</span>
@@ -475,6 +589,91 @@
                 if (connected) {
                     fetch(`http://${ip}/speed?val=${val}`, { mode: "no-cors" });
                 }
+            }
+
+            // Fungsi Memutar MP3 sesuai Tombol
+            function playTrack(num, nama) {
+                const ip = document.getElementById("esp-ip").value.trim();
+                log(`AUDIO -> Memutar [${nama}] (00${num}.mp3)`, "#fbbf24");
+                if (!connected) {
+                    log(`Belum terhubung! Klik 'Sambungkan'.`, "#f87171");
+                    return;
+                }
+                fetch(`http://${ip}/audio?track=${num}`, {
+                    mode: "no-cors"
+                }).catch(() =>
+                    log("Gagal mengirim perintah audio.", "#f87171")
+                );
+            }
+
+            // Fungsi Suara Langsung HP dengan Jeda 2 Detik setelah diucapkan
+            function startVoiceDelay() {
+                const SpeechRecognition =
+                    window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    log(
+                        "Browser tidak mendukung fitur rekam ucapan di HTTP lokal.",
+                        "#f87171"
+                    );
+                    return;
+                }
+
+                const btnVoice = document.getElementById("btn-voice");
+                const recognition = new SpeechRecognition();
+                recognition.lang = "id-ID";
+                recognition.interimResults = false;
+
+                recognition.onstart = () => {
+                    btnVoice.classList.add("recording");
+                    btnVoice.innerText = "🔴 Silakan Bicara Sekarang...";
+                    log("Mikrofon aktif, mendengarkan ucapan...", "#c084fc");
+                };
+
+                recognition.onresult = event => {
+                    const ucapan = event.results[0][0].transcript;
+                    log(`Teks terdeteksi: "${ucapan}"`, "#f472b6");
+                    log(
+                        "Menunggu jeda 2 detik sebelum diputar di speaker...",
+                        "#94a3b8"
+                    );
+
+                    // Jeda 2000 ms (2 detik) setelah teks diucapkan
+                    setTimeout(() => {
+                        const teksLower = ucapan.toLowerCase();
+                        if (teksLower.includes("klakson")) {
+                            playTrack(1, "Klakson (Suara)");
+                        } else if (
+                            teksLower.includes("lagu 1") ||
+                            teksLower.includes("lagu satu")
+                        ) {
+                            playTrack(2, "Lagu 1 (Suara)");
+                        } else if (
+                            teksLower.includes("lagu 2") ||
+                            teksLower.includes("lagu dua")
+                        ) {
+                            playTrack(3, "Lagu 2 (Suara)");
+                        } else if (
+                            teksLower.includes("lagu 3") ||
+                            teksLower.includes("lagu tiga")
+                        ) {
+                            playTrack(4, "Lagu 3 (Suara)");
+                        } else {
+                            // Memutar file 005.mp3 jika mengucapkan kalimat bebas
+                            playTrack(5, `Pesan Suara: "${ucapan}"`);
+                        }
+                    }, 2000);
+                };
+
+                recognition.onerror = e => {
+                    log(`Gagal menangkap suara: ${e.error}`, "#f87171");
+                };
+
+                recognition.onend = () => {
+                    btnVoice.classList.remove("recording");
+                    btnVoice.innerText = "🎙️ Suara Langsung HP (Jeda 2 Detik)";
+                };
+
+                recognition.start();
             }
 
             function press(e, cmd, label) {
